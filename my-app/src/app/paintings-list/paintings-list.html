@@ -1,6 +1,19 @@
-<section>
-  <h2>Список картин</h2>
-  <ul>
-    <li *ngFor="let p of paintings">{{ p }}</li>
-  </ul>
-</section>
+<button (click)="loadPaintings()">View the collection</button>
+
+<ul *ngIf="products.length > 0; else noData" class="art-grid">
+  <li *ngFor="let art of products" class="art-card">
+    <img
+      [src]="getImageUrl(art.image_id)"
+      alt="{{ art.title }}"
+    />
+    <div class="art-info">
+      <strong>{{ art.title }}</strong><br />
+      <em>{{ art.artist_display }}</em><br />
+      <small>{{ art.date_display }}</small>
+    </div>
+  </li>
+</ul>
+
+<ng-template #noData>
+  <p>No data. Click "View the collection".</p>
+</ng-template>

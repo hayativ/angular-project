@@ -1,11 +1,33 @@
+import 'zone.js';
 import { Component } from '@angular/core';
+import { bootstrapApplication } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-footer',
-  imports: [],
+  imports: [CommonModule, FormsModule],
   templateUrl: './footer.html',
   styleUrl: './footer.css'
 })
 export class Footer {
+  likes = 0;
+  message = '';
+  name = '';
+  email = '';
+  subscribeMessage = '';
+  like() {
+    this.likes++;
+  }
 
+  toggleMessage() {
+    this.message = this.message ? '' : 'Thank you for visiting!';
+  }
+
+  subscribe() {
+    if (this.email) {
+      this.subscribeMessage = `Thanks, ${this.email}`;
+    }
+  }
 }
+bootstrapApplication(Footer);

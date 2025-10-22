@@ -1,0 +1,31 @@
+.subscribe-block {
+  margin: 20px 0;
+  font-family: 'Helvetica Neue', 'Segoe UI', Arial, sans-serif;
+}
+
+.text {
+  margin-top: 10px; 
+  font-size: 1rem; 
+  color: black; 
+}
+
+.subscribe-block button {
+  margin: 5px; 
+  padding: 8px 12px;
+  background: cornflowerblue; 
+  color: white;
+  border: none; 
+  border-radius: 6px; 
+  cursor: pointer;
+}
+
+.subscribe-block button:hover { 
+    background: royalblue; 
+}
+
+.subscribe-block input { 
+    margin: 5px; 
+    padding: 6px; 
+    border-radius: 6px; 
+    border: 1px solid ghostwhite; 
+}

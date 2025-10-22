@@ -1,3 +1,13 @@
-<header>
-  <h1>Моё приложение</h1>
-</header>
+<section class="museum-header">
+  <div class="text-block">
+    <h1>{{ title }}</h1>
+    <p class="schedule">{{ schedule }}</p>
+  </div>
+
+  <div class="image-overlay">
+    <img
+      [src] = "photoUrl"
+      alt="Art Institute of Chicago interior"
+    />
+  </div>
+</section>

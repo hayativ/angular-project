@@ -1,3 +1,6 @@
-<footer>
-  <p>© 2025 — Мой проект</p>
-</footer>
+<div class="subscribe-block">
+  <p class = "text">Join our newsletter to discover the latest exhibits, events, and museum news!</p>
+  <input [(ngModel)]="email" placeholder="Enter your email" />
+  <button (click)="subscribe()">Subscribe</button>
+  <p class = "text"> Let's be in touch! {{ subscribeMessage }}</p>
+</div>

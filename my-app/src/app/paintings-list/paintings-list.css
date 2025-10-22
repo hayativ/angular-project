@@ -1,0 +1,69 @@
+.art-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); 
+  gap: 20px;
+  list-style: none;
+  padding: 0;
+  margin-top: 20px;
+}
+
+.art-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: whitesmoke;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  font-family: 'Helvetica Neue', 'Segoe UI', Arial, sans-serif;
+}
+
+.art-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.art-card img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.art-info {
+  text-align: center;
+  font-family: 'Helvetica Neue', 'Segoe UI', Arial, sans-serif;
+}
+
+.art-info strong {
+  font-size: 1.1em;
+  color: darkslategray;
+}
+
+.art-info em {
+  color: dimgray;
+}
+
+.art-info small {
+  color: gray;
+}
+
+button {
+  display: block;
+  margin: 10px auto;
+  padding: 8px 50px;
+  background-color: cornflowerblue;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  font-family: 'Helvetica Neue', 'Segoe UI', Arial, sans-serif;
+}
+
+button:hover {
+  background-color: royalblue;
+}
