@@ -26,7 +26,7 @@ export class Footer {
 
   subscribe() {
     if (this.email) {
-      this.subscribeMessage = `Thanks, ${this.email}`;
+      this.subscribeMessage = `Let's be in touch, ${this.email}`;
     }
   }
 }

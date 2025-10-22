@@ -1,19 +1,34 @@
-<button (click)="loadPaintings()">View the collection</button>
+<div class="search-container">
+  <input
+    type="text"
+    [(ngModel)] = "searchTerm"
+    (input) = "onSearchChange($event)"
+    [placeholder] = "placeholderText"
+    class="search-input"
+  />
+</div>
 
-<ul *ngIf="products.length > 0; else noData" class="art-grid">
-  <li *ngFor="let art of products" class="art-card">
-    <img
-      [src]="getImageUrl(art.image_id)"
-      alt="{{ art.title }}"
-    />
-    <div class="art-info">
-      <strong>{{ art.title }}</strong><br />
-      <em>{{ art.artist_display }}</em><br />
-      <small>{{ art.date_display }}</small>
-    </div>
-  </li>
-</ul>
+<button (click)="loadPaintings()">View the Collection</button>
 
-<ng-template #noData>
-  <p>No data. Click "View the collection".</p>
-</ng-template>
+<p *ngIf = "loading">Loading paintings...</p>
+<p *ngIf = "errorMessage" class="error">{{ errorMessage }}</p>
+
+@if (products.length > 0) {
+  <ul class = "art-grid">
+    @for (art of products; track art.id) {
+      <li class = "art-card">
+        <img
+          [src] = "getImageUrl(art.image_id)"
+          alt = "{{ art.title }}"
+        />
+        <div class = "art-info">
+          <strong>{{ art.title }}</strong><br />
+          <em>{{ art.artist_display }}</em><br />
+          <small>{{ art.date_display }}</small>
+        </div>
+      </li>
+    }
+  </ul>
+} @else if (!loading && !errorMessage) {
+  <p>{{ loadingText }}</p>
+}

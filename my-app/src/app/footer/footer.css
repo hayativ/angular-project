@@ -24,8 +24,17 @@
 }
 
 .subscribe-block input { 
-    margin: 5px; 
-    padding: 6px; 
-    border-radius: 6px; 
-    border: 1px solid ghostwhite; 
+  width: 15%;
+  padding: 7px 40px 7px 12px;
+  border: 2px solid whitesmoke;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+
+.subscribe-block input:focus { 
+  outline: none;
+  border-color: cornflowerblue;
+  box-shadow: 0 0 0 3px rgba(100, 149, 237, 0.1);
 }
