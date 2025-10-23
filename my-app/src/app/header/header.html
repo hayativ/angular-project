@@ -2,6 +2,8 @@
   <div class = "text-block">
     <h1>{{ title }}</h1>
     <p class = "schedule">{{ schedule }}</p>
+    <button (click)="toggleMessage()">See upcoming exhibitions</button>
+    <p>{{ message }}</p>
   </div>
 
   <div class = "image-overlay">

@@ -24,7 +24,7 @@
   margin: 0 0 10px; 
 }
 
-.schedule {
+p {
   margin-top: 10px; 
   font-size: 1rem; 
   font-weight: 300;
@@ -46,4 +46,24 @@
   width: 100%; 
   height: auto; 
   opacity: 0.4; 
+}
+
+button {
+  display: block;
+  margin: 10px auto;
+  padding: 5px 10px;
+  background-color: whitesmoke;
+  border: none;
+  border-radius: 8px;
+  color: black;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 12px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  font-family: 'Helvetica Neue', 'Segoe UI', Arial, sans-serif;
+}
+
+button:hover {
+  background-color: gray;
+  transform: translateY(-2px);
 }
