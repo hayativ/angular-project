@@ -1,29 +1,30 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import { Subject, Subscription, of } from 'rxjs';
-import { debounceTime, switchMap, catchError } from 'rxjs/operators';
+import { Subject, Subscription } from 'rxjs';
+import { debounceTime, switchMap } from 'rxjs/operators';
+import { PaintingsService, Painting } from '../services/paintings.service';
 
 @Component({
   selector: 'app-paintings-list',
   standalone: true,
-  imports: [CommonModule, FormsModule, HttpClientModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './paintings-list.html',
   styleUrls: ['./paintings-list.css']
 })
 export class PaintingsList implements OnInit, OnDestroy {
-  loadingText = "No data yet. Click the button";
-  placeholderText  = "Search..."
-  products: any[] = [];
+  viewButton = 'View collection';
+  loadingText = 'No data yet. Click the button';
+  placeholderText  = 'Search...';
+  products: Painting[] = [];
   searchTerm: string = '';
   errorMessage: string | null = null;
   loading = false;
 
-  private searchSubject = new Subject<string>();
+  private readonly searchSubject = new Subject<string>();
   private searchSubscription?: Subscription;
 
-  constructor(private http: HttpClient) {}
+  constructor(private readonly paintingsService: PaintingsService) {}
 
   ngOnInit() {
     this.searchSubscription = this.searchSubject.pipe(
@@ -32,28 +33,23 @@ export class PaintingsList implements OnInit, OnDestroy {
         if (term.trim()) {
           this.loading = true;
           this.errorMessage = null;
-
-          const url = `https://api.artic.edu/api/v1/artworks/search?q=${term}&fields=id,title,artist_display,image_id,date_display&page=1&limit=6`;
-
-          return this.http.get<any>(url).pipe(
-            catchError(err => {
-              console.error('Search error:', err);
-              this.errorMessage = 'Failed to load results. Try again';
-              this.loading = false;
-              return of({ data: [] });
-            })
-          );
+          return this.paintingsService.searchPaintings(term);
         } else {
-          return of({ data: [] });
+          this.products = [];
+          this.loading = false;
+          return [];
         }
       })
     ).subscribe({
-      next: (response: any) => {
-        this.products = response.data || [];
+      next: (response) => {
+        if (response?.data) {
+          this.products = response.data;
+        }
         this.loading = false;
       },
       error: err => {
         console.error('Subscription error:', err);
+        this.errorMessage = 'Failed to load results. Try again';
         this.loading = false;
       }
     });
@@ -71,27 +67,24 @@ export class PaintingsList implements OnInit, OnDestroy {
   }
 
   loadPaintings() {
-    const url = 'https://api.artic.edu/api/v1/artworks?fields=id,title,artist_display,image_id,date_display&page=1&limit=6';
     this.loading = true;
     this.errorMessage = null;
+    this.searchTerm = '';
 
-    this.http.get<any>(url).pipe(
-      catchError(err => {
+    this.paintingsService.loadPaintings(6).subscribe({
+      next: (response) => {
+        this.products = response.data;
+        this.loading = false;
+      },
+      error: (err) => {
         console.error('Load error:', err);
         this.errorMessage = 'Failed to load paintings. Try again.';
         this.loading = false;
-        return of({ data: [] });
-      })
-    ).subscribe(response => {
-      this.products = response.data;
-      this.loading = false;
-      this.searchTerm = '';
+      }
     });
   }
 
   getImageUrl(imageId: string): string {
-    return imageId
-      ? `https://www.artic.edu/iiif/2/${imageId}/full/843,/0/default.jpg`
-      : '';
+    return this.paintingsService.getImageUrl(imageId);
   }
 }

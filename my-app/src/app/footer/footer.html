@@ -1,11 +1,11 @@
 <div class="subscribe-block">
-  <p class = "text">Join our newsletter to discover the latest exhibits, events, and museum news!</p>
+  <p class = "text">{{ gratitudeMessage }}</p>
   <input 
     [(ngModel)]="email"
     type="email"
     class="email-input"
     placeholder="Enter your email"
   />
-  <button (click)="subscribe()">Subscribe</button>
+  <button (click)="subscribe()">{{ subscribeButton}}</button>
   <p class = "text">{{ subscribeMessage }}</p>
 </div>

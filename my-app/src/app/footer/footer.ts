@@ -15,6 +15,8 @@ export class Footer {
   message = '';
   name = '';
   email = '';
+  gratitudeMessage = 'Join our newsletter to discover the latest exhibits, events, and museum news!';
+  subscribeButton = 'Subscribe';
   subscribeMessage = '';
   like() {
     this.likes++;

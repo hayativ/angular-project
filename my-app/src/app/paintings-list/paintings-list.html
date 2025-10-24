@@ -8,10 +8,14 @@
   />
 </div>
 
-<button (click)="loadPaintings()">View the Collection</button>
+<button (click)="loadPaintings()">{{ viewButton }}</button>
+@if (loading) {
+  <p>Loading paintings...</p>
+}
 
-<p *ngIf = "loading">Loading paintings...</p>
-<p *ngIf = "errorMessage" class="error">{{ errorMessage }}</p>
+@if (errorMessage) {
+  <p class="error">{{ errorMessage }}</p>
+}
 
 @if (products.length > 0) {
   <ul class = "art-grid">
