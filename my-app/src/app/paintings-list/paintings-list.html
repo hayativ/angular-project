@@ -17,9 +17,9 @@
   <p class="error">{{ errorMessage }}</p>
 }
 
-@if (products.length > 0) {
+@if (paintings.length > 0) {
   <ul class = "art-grid">
-    @for (art of products; track art.id) {
+    @for (art of paintings; track art.id) {
       <li class = "art-card">
         <img
           [src] = "getImageUrl(art.image_id)"

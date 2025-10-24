@@ -16,7 +16,7 @@ export class PaintingsList implements OnInit, OnDestroy {
   viewButton = 'View collection';
   loadingText = 'No data yet. Click the button';
   placeholderText  = 'Search...';
-  products: Painting[] = [];
+  paintings: Painting[] = [];
   searchTerm: string = '';
   errorMessage: string | null = null;
   loading = false;
@@ -35,7 +35,7 @@ export class PaintingsList implements OnInit, OnDestroy {
           this.errorMessage = null;
           return this.paintingsService.searchPaintings(term);
         } else {
-          this.products = [];
+          this.paintings = [];
           this.loading = false;
           return [];
         }
@@ -43,7 +43,7 @@ export class PaintingsList implements OnInit, OnDestroy {
     ).subscribe({
       next: (response) => {
         if (response?.data) {
-          this.products = response.data;
+          this.paintings = response.data;
         }
         this.loading = false;
       },
@@ -67,13 +67,12 @@ export class PaintingsList implements OnInit, OnDestroy {
   }
 
   loadPaintings() {
-    this.loading = true;
     this.errorMessage = null;
     this.searchTerm = '';
 
     this.paintingsService.loadPaintings(6).subscribe({
       next: (response) => {
-        this.products = response.data;
+        this.paintings = response.data;
         this.loading = false;
       },
       error: (err) => {
