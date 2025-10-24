@@ -8,28 +8,23 @@ import { CommonModule } from '@angular/common';
   selector: 'app-footer',
   imports: [CommonModule, FormsModule],
   templateUrl: './footer.html',
-  styleUrl: './footer.css'
+  styleUrls: ['./footer.css']
 })
 export class Footer {
-  likes = 0;
-  message = '';
-  name = '';
+  ticketCnt = 0;
   email = '';
-  gratitudeMessage = 'Join our newsletter to discover the latest exhibits, events, and museum news!';
-  subscribeButton = 'Subscribe';
-  subscribeMessage = '';
-  like() {
-    this.likes++;
+  ticketButton = 'Add';
+  ticketMessage = 'Click to add ticket';
+  buyButton = 'Buy tickets';
+  paymentMessage = '';
+
+  ticket() {
+    this.ticketCnt++;
   }
 
-  toggleMessage() {
-    this.message = this.message ? '' : 'Thank you for visiting!';
-  }
-
-  subscribe() {
-    if (this.email) {
-      this.subscribeMessage = `Let's be in touch, ${this.email}`;
-    }
+  buy() {
+    this.paymentMessage = `We'll send payment to your email`;
   }
 }
+
 bootstrapApplication(Footer);

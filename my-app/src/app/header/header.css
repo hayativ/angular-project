@@ -67,3 +67,31 @@ button:hover {
   background-color: gray;
   transform: translateY(-2px);
 }
+
+.subscribe-block {
+  margin-top: 15px;
+}
+
+.email-input {
+  display: block;
+  margin: 10px auto;
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 2px solid whitesmoke;
+  width: 220px;
+  font-size: 12px;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+
+.email-input:focus { 
+  outline: none;
+  border-color: cornflowerblue;
+  box-shadow: 0 0 0 3px rgba(100, 149, 237, 0.1);
+}
+
+.text {
+  font-size: 0.9rem;
+  color: grey;
+  margin-top: 5px;
+}
