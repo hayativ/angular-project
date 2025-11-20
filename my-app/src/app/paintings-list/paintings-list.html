@@ -1,38 +1,38 @@
 <div class="search-container">
   <input
     type="text"
-    [(ngModel)] = "searchTerm"
-    (input) = "onSearchChange($event)"
-    [placeholder] = "placeholderText"
+    [(ngModel)]="searchTerm"
+    (input)="onSearchChange($event)"
+    [placeholder]="placeholderText"
     class="search-input"
   />
 </div>
 
 <button (click)="loadPaintings()">{{ viewButton }}</button>
+
 @if (loading) {
-  <p>Loading paintings...</p>
+  <div class="loading-state">
+    <p>Loading paintings...</p>
+  </div>
 }
 
 @if (errorMessage) {
-  <p class="error">{{ errorMessage }}</p>
+  <div class="error-state">
+    <p class="error">{{ errorMessage }}</p>
+  </div>
 }
 
 @if (paintings.length > 0) {
-  <ul class = "art-grid">
-    @for (art of paintings; track art.id) {
-      <li class = "art-card">
-        <img
-          [src] = "getImageUrl(art.image_id)"
-          alt = "{{ art.title }}"
-        />
-        <div class = "art-info">
-          <strong>{{ art.title }}</strong><br />
-          <em>{{ art.artist_display }}</em><br />
-          <small>{{ art.date_display }}</small>
-        </div>
-      </li>
+  <ul class="paintings-grid">
+    @for (painting of paintings; track painting.id) {
+      <app-painting-card
+        [painting]="painting"
+        [getImageUrl]="getImageUrl.bind(this)">
+      </app-painting-card>
     }
   </ul>
 } @else if (!loading && !errorMessage) {
-  <p>{{ loadingText }}</p>
+  <div class="empty-state">
+    <p>{{ loadingText }}</p>
+  </div>
 }

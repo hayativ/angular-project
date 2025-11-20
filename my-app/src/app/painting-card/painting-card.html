@@ -1,0 +1,15 @@
+<li class="painting-card">
+  <a [routerLink]="['/paintings', painting.id]" class="painting-link">
+    <img
+      [src]="getImageUrl(painting.image_id)"
+      [alt]="painting.title"
+      crossorigin="anonymous"
+      class="painting-image"
+    />
+    <div class="painting-info">
+      <strong>{{ painting.title }}</strong><br />
+      <em>{{ painting.artist_display }}</em><br />
+      <small>{{ painting.date_display }}</small>
+    </div>
+  </a>
+</li>

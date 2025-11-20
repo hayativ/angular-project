@@ -1,11 +1,10 @@
-import 'zone.js';
 import { Component } from '@angular/core';
-import { bootstrapApplication } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-footer',
+  standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './footer.html',
   styleUrls: ['./footer.css']
@@ -26,5 +25,3 @@ export class Footer {
     this.paymentMessage = `We'll send payment to your email`;
   }
 }
-
-bootstrapApplication(Footer);

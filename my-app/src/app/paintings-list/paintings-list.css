@@ -51,56 +51,21 @@ button:hover {
   transform: translateY(-2px);
 }
 
-.art-grid {
+.paintings-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); 
+  grid-template-columns: repeat(3, 1fr);
   gap: 20px;
   list-style: none;
   padding: 0;
   margin-top: 20px;
 }
 
-.art-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background: whitesmoke;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  padding: 15px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  font-family: 'Helvetica Neue', 'Segoe UI', Arial, sans-serif;
-}
-
-.art-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-.art-card img {
-  width: 150px;
-  height: 150px;
-  object-fit: cover;
-  border-radius: 8px;
-  margin-bottom: 10px;
-}
-
-.art-info {
+.loading-state,
+.error-state,
+.empty-state {
   text-align: center;
+  margin: 20px 0;
   font-family: 'Helvetica Neue', 'Segoe UI', Arial, sans-serif;
-}
-
-.art-info strong {
-  font-size: 1.1em;
-  color: darkslategray;
-}
-
-.art-info em {
-  color: dimgray;
-}
-
-.art-info small {
-  color: gray;
 }
 
 p {

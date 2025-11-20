@@ -1,0 +1,51 @@
+.painting-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: whitesmoke;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  font-family: 'Helvetica Neue', 'Segoe UI', Arial, sans-serif;
+}
+
+.painting-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.painting-link {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.painting-image {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.painting-info {
+  text-align: center;
+  font-family: 'Helvetica Neue', 'Segoe UI', Arial, sans-serif;
+}
+
+.painting-info strong {
+  font-size: 1.1em;
+  color: darkslategray;
+}
+
+.painting-info em {
+  color: dimgray;
+}
+
+.painting-info small {
+  color: gray;
+}

@@ -1,0 +1,51 @@
+<div class="about-container">
+  <div class="about-header">
+    <h1>{{ title }}</h1>
+  </div>
+
+  <section class="stats-section">
+    <div class="stat-card">
+      <h2>{{ foundedYear }}</h2>
+      <p>Founded</p>
+    </div>
+    <div class="stat-card">
+      <h2>{{ collectionSize }}</h2>
+      <p>Artworks</p>
+    </div>
+  </section>
+
+  <section class="facts-section">
+    <h2>What Makes Us Special</h2>
+    <div class="facts-grid">
+      @for (fact of facts; track fact.title) {
+        <div class="fact-card">
+          <h3>{{ fact.title }}</h3>
+          <p>{{ fact.description }}</p>
+        </div>
+      }
+    </div>
+  </section>
+
+  <section class="visit-section">
+    <h2>Plan Your Visit</h2>
+    <div class="schedule">
+      <div class="schedule-item">
+        <strong>Weekdays</strong>
+        <p>{{ schedule.weekdays }}</p>
+      </div>
+      <div class="schedule-item">
+        <strong>Weekends</strong>
+        <p>{{ schedule.weekends }}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="mission-section">
+    <h2>Our Mission</h2>
+    <p class="mission-text">
+      The Art Institute of Chicago collects, preserves, and interprets works of art of the highest quality, 
+      representing the world's diverse artistic traditions, for the inspiration and education of the public 
+      and in accordance with our profession's highest ethical standards and practices.
+    </p>
+  </section>
+</div>
