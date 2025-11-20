@@ -4,21 +4,23 @@
     <p class="schedule">{{ schedule }}</p>
     <button (click)="toggleMessage()">{{ exhibitionButton }}</button>
     <p>{{ message }}</p>
-    <div *ngIf="showSubscribe" class="subscribe-block">
-      <input
-        [(ngModel)]="email"
-        type="email"
-        class="email-input"
-        placeholder="Enter your email"
-      />
-      <button (click)="subscribe()">{{ subscribeButton }}</button>
-      <p class="text">{{ subscribeMessage }}</p>
+    @if (showSubscribe) {
+      <div class="subscribe-block">
+        <input
+          [(ngModel)]="email"
+          type="email"
+          class="email-input"
+          placeholder="Enter your email"
+          />
+          <button (click)="subscribe()">{{ subscribeButton }}</button>
+          <p class="text">{{ subscribeMessage }}</p>
+        </div>
+      }
     </div>
-  </div>
-  <div class="image-overlay">
-    <img
-      [src]="photoUrl"
-      alt="Art Institute of Chicago interior"
-    />
-  </div>
-</section>
+    <div class="image-overlay">
+      <img
+        [src]="photoUrl"
+        alt="Art Institute of Chicago interior"
+        />
+      </div>
+    </section>

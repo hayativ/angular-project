@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { RouterLink } from '@angular/router';
 import { PaintingsService, Painting } from '../services/paintings.service';
 
 @Component({
     selector: 'app-home',
     standalone: true,
-    imports: [CommonModule, RouterLink],
+    imports: [RouterLink],
     templateUrl: './home.html',
     styleUrl: './home.css'
 })
