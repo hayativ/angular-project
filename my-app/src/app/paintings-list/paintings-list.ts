@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject, Subscription } from 'rxjs';
@@ -10,7 +10,7 @@ import { PaintingCard } from '../painting-card/painting-card';
 @Component({
   selector: 'app-paintings-list',
   standalone: true,
-  imports: [FormsModule, PaintingCard],
+  imports: [CommonModule, FormsModule, PaintingCard],
   templateUrl: './paintings-list.html',
   styleUrls: ['./paintings-list.css']
 })

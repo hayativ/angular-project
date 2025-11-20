@@ -1,12 +1,12 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-
+import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { PaintingsService, Painting } from '../services/paintings.service';
 
 @Component({
     selector: 'app-painting-details',
     standalone: true,
-    imports: [RouterLink],
+    imports: [CommonModule, RouterLink],
     templateUrl: './painting-details.html',
     styleUrl: './painting-details.css'
 })

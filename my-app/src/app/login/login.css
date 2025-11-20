@@ -73,13 +73,14 @@
     box-shadow: 0 0 0 3px rgba(100, 149, 237, 0.1);
 }
 
-.message {
+.error-message {
     padding: 1rem;
-    background: #e3f2fd;
-    color: #1976d2;
+    background: #ffebee;
+    color: #c62828;
     border-radius: 8px;
     text-align: center;
     font-size: 0.95rem;
+    border: 1px solid #ffcdd2;
 }
 
 .submit-button {
@@ -93,15 +94,58 @@
     cursor: pointer;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     box-shadow: 0 4px 10px rgba(100, 149, 237, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
 }
 
-.submit-button:hover {
+.submit-button:hover:not(:disabled) {
     transform: translateY(-2px);
     box-shadow: 0 6px 15px rgba(100, 149, 237, 0.4);
 }
 
 .submit-button:active {
     transform: translateY(0);
+}
+
+.submit-button:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.loading-spinner {
+    width: 16px;
+    height: 16px;
+    border: 2px solid transparent;
+    border-top: 2px solid white;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.signup-link {
+    text-align: center;
+    margin-top: 1.5rem;
+    color: #666;
+    font-size: 0.95rem;
+}
+
+.signup-anchor {
+    color: #6495ED;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.signup-anchor:hover {
+    color: #4169E1;
+    text-decoration: underline;
 }
 
 .disclaimer {

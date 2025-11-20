@@ -1,0 +1,56 @@
+<div class="profile-container">
+  <div class="profile-card">
+    <h1>Profile</h1>
+
+    @if (user$ | async; as user) {
+      <div class="user-info">
+        <div class="avatar-section">
+          <div class="avatar">
+            @if (user.photoURL) {
+              <img [src]="user.photoURL" [alt]="user.displayName || 'User avatar'" />
+            } @else {
+              <div class="avatar-placeholder">
+                {{ (user.displayName || user.email || 'User')[0]?.toUpperCase() }}
+              </div>
+            }
+          </div>
+        </div>
+
+        <div class="user-details">
+          <h2>{{ user.displayName || 'User' }}</h2>
+          <p class="email">{{ user.email }}</p>
+          <p class="user-id">User ID: {{ user.uid }}</p>
+
+          @if (user.metadata.creationTime) {
+            <p class="creation-date">Member since: {{ user.metadata.creationTime | date:'longDate' }}</p>
+          }
+
+          @if (user.metadata.lastSignInTime) {
+            <p class="last-signin">Last sign in: {{ user.metadata.lastSignInTime | date:'short' }}</p>
+          }
+
+          @if (user.emailVerified) {
+            <p class="verified-badge">✓ Email Verified</p>
+          } @else {
+            <p class="unverified-badge">Email not verified</p>
+          }
+        </div>
+      </div>
+
+      <div class="profile-actions">
+        <button class="logout-button" (click)="logout()">
+          Sign Out
+        </button>
+
+        <a routerLink="/paintings" class="browse-paintings-link">
+          Browse Paintings
+        </a>
+      </div>
+    } @else {
+      <div class="not-logged-in">
+        <p>You are not logged in.</p>
+        <a routerLink="/login" class="login-link">Sign In</a>
+      </div>
+    }
+  </div>
+</div>
