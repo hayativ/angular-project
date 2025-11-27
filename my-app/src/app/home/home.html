@@ -8,29 +8,31 @@
   <section class="featured-section">
     <h2>Featured Artworks</h2>
 
-    @if (loading) {
+    @if (loading$ | async) {
       <p class="loading">Loading featured artworks...</p>
     }
 
-    @if (featuredPaintings.length > 0) {
-      <div class="featured-grid">
-        @for (painting of featuredPaintings; track painting.id) {
-          <a [routerLink]="['/paintings', painting.id]" class="featured-card">
-            <img
-              [src]="getImageUrl(painting.image_id)"
-              [alt]="painting.title"
-              (error)="onImageError($event)"
-              crossorigin="anonymous"
-              loading="lazy"
-            />
-            <div class="featured-info">
-              <h3>{{ painting.title }}</h3>
-              <p class="artist">{{ painting.artist_display }}</p>
-              <p class="date">{{ painting.date_display }}</p>
-            </div>
-          </a>
-        }
-      </div>
+    @if (featuredPaintings$ | async; as featuredPaintings) {
+      @if (featuredPaintings.length > 0) {
+        <div class="featured-grid">
+          @for (painting of featuredPaintings; track painting.id) {
+            <a [routerLink]="['/paintings', painting.id]" class="featured-card">
+              <img
+                [src]="getImageUrl(painting.image_id)"
+                [alt]="painting.title"
+                (error)="onImageError($event)"
+                crossorigin="anonymous"
+                loading="lazy"
+              />
+              <div class="featured-info">
+                <h3>{{ painting.title }}</h3>
+                <p class="artist">{{ painting.artist_display }}</p>
+                <p class="date">{{ painting.date_display }}</p>
+              </div>
+            </a>
+          }
+        </div>
+      }
     }
   </section>
 

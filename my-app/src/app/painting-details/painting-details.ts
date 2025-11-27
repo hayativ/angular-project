@@ -1,7 +1,11 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs';
 import { PaintingsService, Painting } from '../services/paintings.service';
+import * as PaintingActions from '../painting/state/painting.actions';
+import * as PaintingSelectors from '../painting/state/painting.selectors';
 
 @Component({
     selector: 'app-painting-details',
@@ -10,53 +14,45 @@ import { PaintingsService, Painting } from '../services/paintings.service';
     templateUrl: './painting-details.html',
     styleUrl: './painting-details.css'
 })
-export class PaintingDetails implements OnInit {
+export class PaintingDetails implements OnInit, OnDestroy {
     painting: Painting | null = null;
     errorMessage: string | null = null;
     isLoading = false;
+    private storeSubscription?: Subscription;
 
     constructor(
         private readonly route: ActivatedRoute,
         private readonly router: Router,
         private readonly paintingsService: PaintingsService,
-        private readonly cdr: ChangeDetectorRef
+        private readonly cdr: ChangeDetectorRef,
+        private readonly store: Store
     ) { }
 
     ngOnInit() {
         const id = this.route.snapshot.paramMap.get('id');
 
+        this.storeSubscription = this.store.select(PaintingSelectors.selectPaintingState).subscribe(state => {
+            this.painting = state.selectedPainting;
+            this.isLoading = state.loadingDetails;
+            this.errorMessage = state.errorDetails;
+            this.cdr.detectChanges();
+        });
+
         if (id) {
-            this.loadPainting(+id);
+            this.loadPainting(id);
         } else {
             this.errorMessage = 'No painting ID provided';
         }
     }
 
-    loadPainting(id: number) {
-        this.isLoading = true;
-        this.errorMessage = null;
-        console.log('Loading painting with ID:', id);
+    ngOnDestroy() {
+        if (this.storeSubscription) {
+            this.storeSubscription.unsubscribe();
+        }
+    }
 
-        this.paintingsService.getPaintingById(id).subscribe({
-            next: (response) => {
-                console.log('Received response:', response);
-                if (response?.data && typeof response.data === 'object' && response.data.id) {
-                    this.painting = response.data;
-                    console.log('Painting loaded successfully:', this.painting);
-                } else {
-                    this.errorMessage = 'Painting not found';
-                    console.error('Invalid response data:', response);
-                }
-                this.isLoading = false;
-                this.cdr.detectChanges();
-            },
-            error: (err) => {
-                console.error('Load error:', err);
-                this.errorMessage = 'Failed to load painting details';
-                this.isLoading = false;
-                this.cdr.detectChanges();
-            }
-        });
+    loadPainting(id: string | number) {
+        this.store.dispatch(PaintingActions.loadPainting({ id }));
     }
 
     getImageUrl(imageId: string): string {
