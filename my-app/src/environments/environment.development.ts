@@ -1,5 +1,7 @@
 export const environment = {
   production: false,
+  "serviceWorker": true,
+  "ngswConfigPath": "ngsw-config.json",
   firebase: {
     apiKey: "AIzaSyB77nU0nfLgFDjoG6VJUOzF45kbc-LaXgM",
     authDomain: "art-institute-angular.firebaseapp.com",

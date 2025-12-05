@@ -1,8 +1,5 @@
 {
   "dependencies": {
-    "firebase": "^12.6.0"
-  },
-  "devDependencies": {
-    "@angular-devkit/build-angular": "~20.3.6"
+    "@angular/service-worker": "^21.0.3"
   }
 }

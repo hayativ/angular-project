@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { PaintingsService, Painting } from '../services/paintings.service';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { Painting, PaintingsService } from '../services/paintings.service';
+import * as PaintingActions from '../painting/state/painting.actions';
+import * as PaintingSelectors from '../painting/state/painting.selectors';
 
 @Component({
     selector: 'app-home',
@@ -13,22 +17,19 @@ import { PaintingsService, Painting } from '../services/paintings.service';
 export class Home implements OnInit {
     title = 'Art Institute of Chicago';
     subtitle = 'Discover World-Class Art';
-    featuredPaintings: Painting[] = [];
-    loading = true;
+    featuredPaintings$: Observable<Painting[]>;
+    loading$: Observable<boolean>;
 
-    constructor(private readonly paintingsService: PaintingsService) { }
+    constructor(
+        private readonly paintingsService: PaintingsService,
+        private readonly store: Store
+    ) {
+        this.featuredPaintings$ = this.store.select(PaintingSelectors.selectPaintingList);
+        this.loading$ = this.store.select(PaintingSelectors.selectListLoading);
+    }
 
     ngOnInit() {
-        this.paintingsService.loadPaintings(3).subscribe({
-            next: (response) => {
-                this.featuredPaintings = response.data;
-                this.loading = false;
-            },
-            error: (err) => {
-                console.error('Load error:', err);
-                this.loading = false;
-            }
-        });
+        this.store.dispatch(PaintingActions.loadPaintings({ query: '' }));
     }
 
     getImageUrl(imageId: string): string {

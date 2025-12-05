@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
 
 export interface Painting {
   id: number;
@@ -35,44 +35,40 @@ export class PaintingsService {
 
   constructor(private readonly http: HttpClient) { }
 
-  loadPaintings(limit: number = 6): Observable<ArtworksResponse> {
-    const url = `${this.baseUrl}?fields=${this.fields}&page=1&limit=${limit}`;
-
-    return this.http.get<ArtworksResponse>(url).pipe(
-      catchError(err => {
-        console.error('Load error:', err);
-        return of({ data: [] });
-      })
-    );
-  }
-
-  searchPaintings(searchTerm: string, limit: number = 6): Observable<ArtworksResponse> {
-    if (!searchTerm.trim()) {
-      return of({ data: [] });
+  getPaintings(query?: string): Observable<Painting[]> {
+    let url = `${this.baseUrl}?fields=${this.fields}&page=1&limit=6`;
+    if (query && query.trim()) {
+      url = `${this.baseUrl}/search?q=${encodeURIComponent(query)}&fields=${this.fields}&limit=6`;
     }
 
-    const url = `${this.baseUrl}/search?q=${encodeURIComponent(searchTerm)}&fields=${this.fields}&limit=${limit}`;
-
     return this.http.get<ArtworksResponse>(url).pipe(
+      map(response => response.data || []),
       catchError(err => {
-        console.error('Search error:', err);
-        return of({ data: [] });
+        console.error('Get paintings error:', err);
+        return of([]);
       })
     );
   }
 
-  getPaintingById(id: number): Observable<{ data: Painting }> {
+  getPaintingById(id: string | number): Observable<Painting> {
     const url = `${this.baseUrl}/${id}?fields=${this.detailFields}`;
 
     return this.http.get<{ data: Painting }>(url).pipe(
+      map(response => response.data),
       catchError(err => {
         console.error('Get painting error:', err);
-        return of({ data: null as any });
+        throw err; // Let effects handle error or return null? User said "On errors, dispatch the failure actions". So throwing or returning error is fine.
+        // But for safety let's return null or throw.
+        // If I return of(null), the type signature Observable<Painting> is violated if strict.
+        // Let's throw so catchError in effect catches it.
       })
     );
   }
 
   getImageUrl(imageId: string): string {
-    return imageId ? `https://www.artic.edu/iiif/2/${imageId}/full/843,/0/default.jpg` : '';
+    if (!imageId) return '';
+    const imageUrl = `https://www.artic.edu/iiif/2/${imageId}/full/843,/0/default.jpg`;
+    return `http://localhost:3000/proxy/${encodeURIComponent(imageUrl)}`;
   }
+
 }
